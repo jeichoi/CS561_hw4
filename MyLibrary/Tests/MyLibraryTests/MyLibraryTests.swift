@@ -123,5 +123,20 @@ final class MyLibraryTests: XCTestCase {
         //Then
         XCTAssertEqual(temperature, 294.13)
     }
+    
+    func testRealWeatherServerIntegration() async {
+        //Given
+        let sut = WeatherServiceImpl()
+        let compareTemp = 69
+        //When
+        do{
+            let realTemp = try await sut.getTemperature()
+            //Then
+            XCTAssertEqual(realTemp, compareTemp)
+        } catch {
+            print(error)
+        }
+        
+    }
 
 }
