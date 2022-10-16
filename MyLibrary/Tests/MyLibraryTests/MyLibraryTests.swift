@@ -1,5 +1,5 @@
 import XCTest
-import MyLibrary
+@testable import MyLibrary
 
 final class MyLibraryTests: XCTestCase {
     func testIsLuckyBecauseWeAlreadyHaveLuckyNumber() async {
@@ -67,6 +67,61 @@ final class MyLibraryTests: XCTestCase {
 
         // Then
         XCTAssertNil(isLuckyNumber)
+    }
+    
+    func testWeatherModel() async {
+        //Given
+        let sut = WeatherServiceImpl()
+        let mockJsonString = """
+{
+  "coord": {
+    "lon": -123.26,
+    "lat": 44.56
+  },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 294.13,
+    "feels_like": 293.82,
+    "temp_min": 293.08,
+    "temp_max": 298.25,
+    "pressure": 1016,
+    "humidity": 59
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 4.12,
+    "deg": 310
+  },
+  "clouds": {
+    "all": 0
+  },
+  "dt": 1665960009,
+  "sys": {
+    "type": 2,
+    "id": 2005452,
+    "country": "US",
+    "sunrise": 1665930568,
+    "sunset": 1665970039
+  },
+  "timezone": -25200,
+  "id": 5720727,
+  "name": "Corvallis",
+  "cod": 200
+}
+"""
+        
+        //Wehn
+        let temperature = sut.getTemperatureFromModel(jsonString: mockJsonString)
+        //Then
+        XCTAssertEqual(temperature, 294.13)
     }
 
 }

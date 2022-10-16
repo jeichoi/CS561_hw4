@@ -1,4 +1,5 @@
 import Alamofire
+import Foundation
 
 public protocol WeatherService {
     func getTemperature() async throws -> Int
@@ -21,6 +22,20 @@ class WeatherServiceImpl: WeatherService {
                 }
             }
         }
+    }
+    
+    func getTemperatureFromModel(jsonString: String ) -> Double{
+        let jsonData = Data(jsonString.utf8)
+        let jsonDecoder = JSONDecoder()
+        var temperature = 0.0
+        do{
+            let weather = try jsonDecoder.decode(Weather.self, from: jsonData)
+            temperature = weather.main.temp
+        }catch{
+           print(error)
+        }
+        
+        return temperature
     }
 }
 
