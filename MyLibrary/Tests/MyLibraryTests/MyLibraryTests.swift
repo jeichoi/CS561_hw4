@@ -93,7 +93,7 @@ final class MyLibraryTests: XCTestCase {
     "temp_min": 293.08,
     "temp_max": 298.25,
     "pressure": 1016,
-    "humidity": 59
+    "humidity": 58
   },
   "visibility": 10000,
   "wind": {
