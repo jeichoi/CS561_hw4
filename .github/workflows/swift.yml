@@ -23,7 +23,7 @@ jobs:
       run: |
         node index.js &
         sleep 10
-        curl - X GET "http://localhost:3000/data/2.5/weather"
+        curl -X GET "http://localhost:3000/data/2.5/weather"
       
     - name: Build and test(run)
       working-directory: ./MyLibrary
