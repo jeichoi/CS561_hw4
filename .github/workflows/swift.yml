@@ -1,0 +1,37 @@
+# This workflow will build a Swift project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
+
+name: Swift
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Node.js mock server setting
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Run Node.js mock server
+      working-directory: ./myapp
+      run: |
+        node index.js &
+        sleep 10
+        curl - X GET "http://localhost:3000/data/2.5/weather"
+      
+    - name: Build and test(run)
+      working-directory: ./MyLibrary
+      run: |
+        swift build -v
+        swift test -v
